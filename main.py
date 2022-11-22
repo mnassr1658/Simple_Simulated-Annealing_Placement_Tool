@@ -1,9 +1,8 @@
 import random
+import math
 from functions import *
 
-
-
-f = open("test.txt", 'r')
+f = open("d0.txt", 'r')
 
 #reading first line and taking the floor size
 first_line = f.readline().split()
@@ -46,23 +45,55 @@ dict = dict(components)
 #all unique components
 cells = [i[0] for i in (components)]
 
-#calculating inital wire length
+#calculating inital wire length, initial temperature, final temperature
 hpl = calculate_total_length(new_lines,dict)
+hpl_copy = hpl
+tempinit = hpl * 500
+tempfinal = ( (5 * (10 ** -6))* hpl ) / len(new_lines)
+# 5 * 10^-6 * hpl / number of nets
 
 #printing the inital placement with the wire length
 print_sites(dict,first_line)
 print("total wire length initally is ", hpl)
 
+#current temp variable
+tempCurrent = tempinit
+
+while (tempCurrent > tempfinal):
+
+    moves = 10 * len(cells) # num of moves each temp 
+
+    for i in range (0, moves):
+        #swap 2 random cells.
+        do_we_accept,dict1,dict_copy,hpl_new,hpl = swap(cells,hpl,dict,new_lines)
+
+        #print and check if swap or not
+        print("total wire length after swap is ", hpl_new)
+
+        if(do_we_accept):
+            print("Swap verified")
+            # correct swap, so change the old matrix to the one with the swap, and change the HPL
+            dict=dict1.copy()
+            hpl = hpl_new
+            # print the new matrix
+            print_sites(dict, first_line)
+        else:
+            deltaL = hpl_new - hpl
+            reject_prob = 1 - pow(math.e, -deltaL/tempCurrent)
+            randnumb = random.randint(1, 100)
+            if (randnumb/100 > reject_prob):
+                # accept the change
+                dict=dict1.copy()
+                hpl = hpl_new
+                # print new matrix
+                print_sites(dict, first_line)
+            else:
+                print("NOT ACCEPTED")
+    
+    #reduce temp (cooling factor)
+    tempCurrent = tempCurrent * 0.95
 
 
-do_we_accept,dict,dict_copy,hpl = swap(cells,hpl,dict,new_lines)
-
-#printing if we swapped or not and new placement
-print("total wire length after swap is ", hpl)
-print("swap is ", do_we_accept)
-
-
-print_sites(dict,first_line)
-
-
-
+print("Initial HPL" + str(hpl_copy))
+print("final hpl" + str(hpl))
+print_sites(dict, first_line)

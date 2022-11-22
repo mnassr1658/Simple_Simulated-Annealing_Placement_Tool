@@ -67,5 +67,5 @@ def swap(cells,hpl_old,dict,new_lines):
         lower_hpl = False
 
 
-    return lower_hpl,dict,dict_copy,hpl1
+    return lower_hpl,dict,dict_copy,hpl1, hpl_old
 
