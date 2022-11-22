@@ -26,7 +26,13 @@ def calculate_total_length(new_lines, dict):
 
     return hpl
 
-def print_sites(Matrix):
+def print_sites(dict,first_line):
+    #initialzing the 2D array (site)
+    Matrix = [['--' for x in range(first_line[1])] for y in range(first_line[0])] 
+
+    #filling up the 2D array
+    for i,z in dict.items():
+        Matrix[z[0]][z[1]] = i
 
     #visualzing the inital placement
     for i in range(0,len(Matrix)):

@@ -3,7 +3,7 @@ from functions import *
 
 
 
-f = open("d0.txt", 'r')
+f = open("test.txt", 'r')
 
 #reading first line and taking the floor size
 first_line = f.readline().split()
@@ -20,7 +20,7 @@ for i in rest_lines:
     i = [eval(i[x]) for x in range(1,len(i))]
     new_lines.append(i)
 
-# print(new_lines)
+print("new lines is" ,new_lines)
 #creating a list where each index has key(unique component)[0] has a unique (x and y)[1]
 x_y = []
 for i in new_lines:
@@ -49,17 +49,10 @@ cells = [i[0] for i in (components)]
 #calculating inital wire length
 hpl = calculate_total_length(new_lines,dict)
 
-#initialzing the 2D array (site)
-Matrix = [['--' for x in range(first_line[1])] for y in range(first_line[0])] 
-
-#filling up the 2D array
-for i,z in dict.items():
-    Matrix[z[0]][z[1]] = i
-
-
 #printing the inital placement with the wire length
-print_sites(Matrix)
+print_sites(dict,first_line)
 print("total wire length initally is ", hpl)
+
 
 
 do_we_accept,dict,dict_copy,hpl = swap(cells,hpl,dict,new_lines)
@@ -68,14 +61,8 @@ do_we_accept,dict,dict_copy,hpl = swap(cells,hpl,dict,new_lines)
 print("total wire length after swap is ", hpl)
 print("swap is ", do_we_accept)
 
-#initialzing the 2D array (site)
-Matrix1= [['--' for x in range(first_line[1])] for y in range(first_line[0])] 
 
-#filling up the 2D array
-for i,z in dict.items():
-    Matrix1[z[0]][z[1]] = i
-
-print_sites(Matrix1)
+print_sites(dict,first_line)
 
 
 
