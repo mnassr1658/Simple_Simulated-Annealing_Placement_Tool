@@ -108,4 +108,4 @@ def mainFunc(filename):
     print("FINAL PLACEMENT")
     print_sites(dict, first_line) # final placement.
 
-    return first_line
+    return first_line,dict

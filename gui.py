@@ -1,6 +1,6 @@
-from PyQt5.QtWidgets import *
 import sys
 from main import mainFunc
+from PyQt5.QtWidgets import *
 
 class App(QMainWindow):
     def __init__(self):
@@ -31,12 +31,22 @@ class bigwidget(QWidget):
         self.submitButton = QPushButton("submit")
 
         def funcOnClick():
-            first_line = mainFunc(self.filename.text())
+            first_line, dict = mainFunc(self.filename.text())
 
+            #initialzing the 2D array (site)
+            array = [['--' for x in range(first_line[1])] for y in range(first_line[0])] 
+
+            #filling up the 2D array
+            for i,z in dict.items():
+                array[z[0]][z[1]] = i
+            
+         
             self.matrix = QTableWidget()
             self.matrix.setRowCount(first_line[0])
             self.matrix.setColumnCount(first_line[1])
-
+            for i in range(0,len(array)):
+                for j in range(0,len(array[0])):
+                    self.matrix.setItem(i,j,QTableWidgetItem(array[i][j]))
             self.placement.layout.addWidget(self.matrix)
             self.placement.setLayout(self.placement.layout)
 
