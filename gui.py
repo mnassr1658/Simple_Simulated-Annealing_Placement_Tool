@@ -29,9 +29,11 @@ class bigwidget(QWidget):
         self.placement.setLayout(self.placement.layout)   
         
         self.submitButton = QPushButton("submit")
+        self.submitMessage = QMessageBox()
+        self.initialLengthmessage = QMessageBox()
 
         def funcOnClick():
-            first_line, dict = mainFunc(self.filename.text())
+            first_line, dict, hpl, initial = mainFunc(self.filename.text())
 
             #initialzing the 2D array (site)
             array = [['--' for x in range(first_line[1])] for y in range(first_line[0])] 
@@ -44,11 +46,25 @@ class bigwidget(QWidget):
             self.matrix = QTableWidget()
             self.matrix.setRowCount(first_line[0])
             self.matrix.setColumnCount(first_line[1])
+
             for i in range(0,len(array)):
                 for j in range(0,len(array[0])):
-                    self.matrix.setItem(i,j,QTableWidgetItem(array[i][j]))
+                    row = array[i][j]
+                    if (type(row) == type('-')):
+                        self.matrix.setItem(i,j,QTableWidgetItem(row))
+                    else:
+                        num = "{:6.0f}".format(row)
+                        self.matrix.setItem(i,j,QTableWidgetItem(num))
+
             self.placement.layout.addWidget(self.matrix)
             self.placement.setLayout(self.placement.layout)
+
+            self.submitMessage.setText("Final wire Length " + str(hpl))
+            self.placement.layout.addWidget(self.submitMessage)
+            self.submitMessage.exec_()
+            self.initialLengthmessage.setText("Initial wire Length " + str(initial))
+            self.placement.layout.addWidget(self.initialLengthmessage)
+            self.initialLengthmessage.exec_()
 
 
         self.submitButton.clicked.connect(funcOnClick)
