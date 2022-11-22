@@ -4,7 +4,7 @@ from functions import *
 
 
 def mainFunc(filename):
-    global dict 
+    global dict #made the gui work
 
     f = open(filename, 'r')
 
