@@ -72,11 +72,9 @@ def mainFunc(filename):
             #swap 2 random cells.
             do_we_accept,dict1,dict_copy,hpl_new,hpl = swap(cells,hpl,dict,new_lines)
 
-            #print and check if swap or not
-            print("total wire length after swap is ", hpl_new)
+
 
             if(do_we_accept):
-                print("Swap verified")
                 # correct swap, so change the old matrix to the one with the swap, and change the HPL
                 dict=dict1.copy()
                 hpl = hpl_new
@@ -92,8 +90,7 @@ def mainFunc(filename):
                     hpl = hpl_new
                     # print new matrix
                     # print_sites(dict, first_line)
-                else:
-                    print("NOT ACCEPTED")
+
 
         #reduce temp (cooling factor)
         tempCurrent = tempCurrent * 0.95
@@ -104,8 +101,9 @@ def mainFunc(filename):
     print_sites(dictcopy2, first_line) # initial placement.
 
 
-    print("final HPL " + str(hpl))
+    
     print("FINAL PLACEMENT")
     print_sites(dict, first_line) # final placement.
+    print("Total wire length = " + str(hpl))
 
     return first_line,dict,hpl,hpl_copy

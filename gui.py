@@ -24,7 +24,7 @@ class bigwidget(QWidget):
         self.bigboy.addTab(self.placement,"Placement")
         self.placement.layout = QVBoxLayout(self)
 
-        self.filename = QLineEdit("file name")
+        self.filename = QLineEdit("file name, to re-enter another file name re-run the program")
         self.placement.layout.addWidget(self.filename)
         self.placement.setLayout(self.placement.layout)   
         
@@ -59,7 +59,7 @@ class bigwidget(QWidget):
             self.placement.layout.addWidget(self.matrix)
             self.placement.setLayout(self.placement.layout)
 
-            self.submitMessage.setText("Final wire Length " + str(hpl))
+            self.submitMessage.setText("Total wire Length = " + str(hpl))
             self.placement.layout.addWidget(self.submitMessage)
             self.submitMessage.exec_()
             self.initialLengthmessage.setText("Initial wire Length " + str(initial))
