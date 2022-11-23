@@ -59,6 +59,9 @@ class bigwidget(QWidget):
             self.placement.layout.addWidget(self.matrix)
             self.placement.setLayout(self.placement.layout)
 
+            self.matrix.horizontalHeader().setStretchLastSection(True)
+            self.matrix.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+
             self.submitMessage.setText("Total wire Length = " + str(hpl))
             self.placement.layout.addWidget(self.submitMessage)
             self.submitMessage.exec_()
