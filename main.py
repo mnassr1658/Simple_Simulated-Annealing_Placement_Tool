@@ -23,7 +23,7 @@ def mainFunc(filename):
         i = [eval(i[x]) for x in range(1,len(i))]
         new_lines.append(i)
 
-    print("new lines is" ,new_lines)
+    # print("new lines is" ,new_lines)
     #creating a list where each index has key(unique component)[0] has a unique (x and y)[1]
     x_y = []
     for i in new_lines:
@@ -54,19 +54,19 @@ def mainFunc(filename):
     hpl = calculate_total_length(new_lines,dict)
     hpl_copy = hpl
     tempinit = hpl * 500
-    tempfinal = ( (5 * (10 ** -6))* hpl ) / len(new_lines)
+    tempfinal =  (5 * (0.00001)* hpl ) / len(new_lines)
     # 5 * 10^-6 * hpl / number of nets
-
+    
     #printing the inital placement with the wire length
+    print("Initial Placement ")
     print_sites(dict,first_line)
     print("total wire length initally is ", hpl)
 
     #current temp variable
     tempCurrent = tempinit
+    moves = 10 * len(cells) # num of moves each temp 
 
     while (tempCurrent > tempfinal):
-
-        moves = 10 * len(cells) # num of moves each temp 
 
         for i in range (0, moves):
             #swap 2 random cells.
@@ -94,12 +94,6 @@ def mainFunc(filename):
 
         #reduce temp (cooling factor)
         tempCurrent = tempCurrent * 0.95
-
-
-    print("Initial HPL " + str(hpl_copy))
-    print("INITIAL PLACEMENT")
-    print_sites(dictcopy2, first_line) # initial placement.
-
 
     
     print("FINAL PLACEMENT")
