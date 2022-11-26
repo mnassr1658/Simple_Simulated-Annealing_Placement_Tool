@@ -9,12 +9,13 @@ def mainFunc(filename):
     f = open(filename, 'r')
 
     #reading first line and taking the floor size
-    first_line = f.readline().split()
+    first_line = f.readline().split()   #list of numbers in the first line 
     first_line = [eval(first_line[x]) for x in range(2,len(first_line))]
+    #list of last 2 numbers in first line (size of matrix)
 
     #reading the rest of the lines, ie the clusters
-    rest_lines = f.readlines()
-    new_lines = []
+    rest_lines = f.readlines() #list of all the lines in the file.
+    new_lines = []  #list of all lines without first number (nets)
     components = []
 
     #creating a list where each index contains a cluster of the compoenents
@@ -24,8 +25,11 @@ def mainFunc(filename):
         new_lines.append(i)
 
     # print("new lines is" ,new_lines)
+
     #creating a list where each index has key(unique component)[0] has a unique (x and y)[1]
     x_y = []
+    #takes each unique element in new_lines and randomly places it in a unique x and y coordinate. 
+    #this is the initial placement.
     for i in new_lines:
 
         for x in i:
@@ -44,7 +48,7 @@ def mainFunc(filename):
                 components.append([x,[row,col]])
 
 
-    dict = dict(components)
+    dict = dict(components)   #change it to a dictionary, with key being cell number and value being coordinates.
     dictcopy2 = dict.copy()
 
     #all unique components
@@ -71,7 +75,7 @@ def mainFunc(filename):
         for i in range (0, moves):
             #swap 2 random cells.
             do_we_accept,dict1,dict_copy,hpl_new,hpl = swap(cells,hpl,dict,new_lines)
-
+            # do we accept variable from the swap function tells us what to do.
 
 
             if(do_we_accept):
@@ -81,6 +85,7 @@ def mainFunc(filename):
                 # print the new matrix
                 # print_sites(dict, first_line)
             else:
+                #reject with probability.
                 deltaL = hpl_new - hpl
                 reject_prob = 1 - pow(math.e, -deltaL/tempCurrent)
                 randnumb = random.randint(1, 100)
