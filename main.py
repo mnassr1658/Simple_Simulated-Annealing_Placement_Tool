@@ -47,13 +47,6 @@ def mainFunc(filename):
                 components.append([x,[row,col]])
                 grid[row][col] = x
 
-    print("Grid is ")
-    for i in range(0,len(grid)):
-        for j in range(0,len(grid[0])):
-            print("{:<4} " .format(grid[i][j]), end=' ')
-
-        print('\n')
-
     dict = dict(components)
     # dictcopy2 = dict.copy()
 
@@ -61,6 +54,7 @@ def mainFunc(filename):
     cells = [i[0] for i in (components)]
 
     dict_indx = {}
+
     for i in cells:
 
         temp1 = []
@@ -80,10 +74,6 @@ def mainFunc(filename):
     hpl_copy = hpl
     tempinit = hpl * 500
     tempfinal =  (5 * (0.00001)* hpl ) / len(new_lines)
-
-    print("Lenght of hpl list is, ", len(hpl_list))
-    print("new_lines list length is , ", len(new_lines))
-    print("total is ", sum(hpl_list))
     # 5 * 10^-6 * hpl / number of nets
     
     #printing the inital placement with the wire length
