@@ -36,11 +36,11 @@ class bigwidget(QWidget):
             first_line, dict, hpl, initial = mainFunc(self.filename.text())
 
             #initialzing the 2D array (site)
-            array = [['--' for x in range(first_line[1])] for y in range(first_line[0])] 
+            array = [['1' for x in range(first_line[1])] for y in range(first_line[0])] 
 
             #filling up the 2D array
             for i,z in dict.items():
-                array[z[0]][z[1]] = i
+                array[z[0]][z[1]] = '0'
             
          
             self.matrix = QTableWidget()
@@ -50,11 +50,8 @@ class bigwidget(QWidget):
             for i in range(0,len(array)):
                 for j in range(0,len(array[0])):
                     row = array[i][j]
-                    if (type(row) == type('-')):
-                        self.matrix.setItem(i,j,QTableWidgetItem(row))
-                    else:
-                        num = "{:6.0f}".format(row)
-                        self.matrix.setItem(i,j,QTableWidgetItem(num))
+                    self.matrix.setItem(i,j,QTableWidgetItem(row))
+                  
 
             self.placement.layout.addWidget(self.matrix)
             self.placement.setLayout(self.placement.layout)
